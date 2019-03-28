@@ -1,0 +1,15 @@
+.login {
+  &__title{
+    font-weight: 200
+    font-size: 2.5rem;
+    letter-spacing: 0.05rem;
+    margin-bottom: 10px
+  }
+  &__reset-password-button{
+    margin: 5px 0
+    outline none;
+    &:hover{
+      opacity: .8
+    }
+  }
+}

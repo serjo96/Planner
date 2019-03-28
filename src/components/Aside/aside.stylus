@@ -1,0 +1,6 @@
+.aside {
+  width: 320px
+  height: 100vh
+  background: #4267b2
+  position: relative
+}

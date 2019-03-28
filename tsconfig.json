@@ -1,0 +1,26 @@
+{
+  "compilerOptions": {
+    "outDir": "./built/",
+    "sourceMap": true,
+    "strict": true,
+    "noImplicitReturns": true,
+    "module": "es2015",
+    "moduleResolution": "node",
+    "experimentalDecorators": true,
+    "target": "es5",
+    "lib": [ "es2015.promise", "es5", "dom" ],
+    "baseUrl": ".",
+    "paths": {
+      "@/*": [
+        "src/*"
+      ]
+    }
+  },
+  "typeRoots": [
+    "./node_modules/@types",
+    "./types"
+  ],
+  "include": [
+    "./src/**/*"
+  ]
+}
