@@ -1,7 +1,7 @@
 <template>
     <div class="layout">
-        <TheAside/>
-        <GoalForm/>
+        <TheAside></TheAside>
+        <GoalForm></GoalForm>
         <v-content>
             <router-view></router-view>
         </v-content>
