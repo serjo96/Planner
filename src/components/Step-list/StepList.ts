@@ -7,10 +7,6 @@ import { Action, Getter, Mutation } from 'vuex-class';
 
 })
 export default class StepList extends Vue {
-    @Action loadGoalList: any;
 
-    mounted(){
-        this.loadGoalList();
-    }
 
 }
