@@ -21,7 +21,6 @@
         <v-btn @click="logOut">logout</v-btn>
 
 
-
         <v-bottom-nav
                 :value="true"
                 absolute
