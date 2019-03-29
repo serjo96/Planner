@@ -20,6 +20,8 @@
         </v-list>
         <v-btn @click="logOut">logout</v-btn>
 
+
+
         <v-bottom-nav
                 :value="true"
                 absolute
@@ -37,6 +39,6 @@
     </div>
 </template>
 
-<script src="./aside.ts" lang="ts"></script>
+<script src="./TheAside.ts" lang="ts"></script>
 
-<style src="./aside.stylus" lang="stylus" scoped></style>
+<style src="./TheAside.stylus" lang="stylus" scoped></style>

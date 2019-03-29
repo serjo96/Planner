@@ -1,6 +1,6 @@
 <template>
-    <div>
-        <Aside/>
+    <div class="layout">
+        <TheAside/>
         <GoalForm/>
         <v-content>
             <router-view></router-view>
@@ -8,7 +8,7 @@
     </div>
 </template>
 
-<script src="./main-page.ts" lang="ts"></script>
+<script src="./MainPage.ts" lang="ts"></script>
 
 <style lang="stylus" scoped>
 

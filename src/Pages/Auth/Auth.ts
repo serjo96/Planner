@@ -1,9 +1,9 @@
-import Vue from 'vue'
-import Component from 'vue-class-component'
-import { Watch } from 'vue-property-decorator'
+import Vue from 'vue';
+import Component from 'vue-class-component';
+import { Watch } from 'vue-property-decorator';
 import { Getter } from 'vuex-class';
-import Login from "./Login/login.vue";
-import SignUp from "./SignUp/SignUp.vue";
+import Login from "@/components/Auth/Login/Login.vue";
+import SignUp from "@/components/Auth/SignUp/SignUp.vue";
 import ResetPassword from "@/components/Auth/ResetPassword/ResetPassword.vue";
 
 
