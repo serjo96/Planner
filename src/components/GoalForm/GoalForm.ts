@@ -1,6 +1,7 @@
 import Vue from 'vue'
 import Component from 'vue-class-component'
-import { State, Action, Getter, Mutation } from 'vuex-class';
+import { Watch } from 'vue-property-decorator'
+import { Action, Mutation } from 'vuex-class';
 
 @Component({
     computed: {
@@ -18,6 +19,7 @@ export default class GoalForm extends Vue {
     name: string = '';
     description: string = '';
     date: string = '';
+    dateFormatted: string = '';
     menu: boolean = false;
     valid: boolean = false;
 
@@ -27,6 +29,26 @@ export default class GoalForm extends Vue {
 
     @Mutation dialogVisibility: any;
     @Action addGoal: any;
+
+    @Watch('date')
+    onChangeDate(){
+        this.dateFormatted = this.formatDate(this.date)
+    }
+
+    formatDate (date: string) {
+        if (!date) return '';
+
+        const [year, month, day] = date.split('-');
+        return `${month}.${day}.${year}`
+    }
+
+    parseDate (date: any) {
+        if (!date) return '';
+
+        const [month, day, year] = date.split('.');
+        return `${year}-${month.padStart(2, '0')}-${day.padStart(2, '0')}`
+    }
+
 
     get formValidate(){
         return (this.$refs.form as Vue & { validate: () => boolean }).validate()

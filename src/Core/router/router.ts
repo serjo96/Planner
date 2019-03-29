@@ -1,9 +1,9 @@
 import Vue from 'vue';
 import Router from 'vue-router';
-import MainPage from '@/components/MainPage/MainPage.vue';
-import Auth from "@/components/Auth/Auth.vue";
 import store from '@/store';
-import StepList from "@/components/Step-list/StepList.vue";
+import Auth from "@/Pages/Auth/Auth.vue";
+import MainPage from '@/Pages/MainPage/MainPage.vue';
+import Goals from '@/Pages/Goals/Goals.vue';
 
 
 Vue.use(Router);
@@ -28,9 +28,9 @@ const Route = new Router({
         },
         children: [
             {
-                path: '/step-list',
-                name: 'Step-list',
-                component: StepList,
+                path: '',
+                name: 'Goals',
+                component: Goals,
                 meta: {
                     title: (route: any) => route.name
                 }
@@ -52,7 +52,6 @@ Route.beforeEach((to, from, next)=> {
 
     if(to.matched.some(record => !record.meta.auth)){
         if(!store.state.UserModule.currentUser){
-            console.log(to.fullPath)
             next({
                 path: '/auth',
                 query: { redirect: to.fullPath }

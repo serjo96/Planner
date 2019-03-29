@@ -53,11 +53,13 @@
                                 >
                                     <template v-slot:activator="{ on }">
                                         <v-text-field
-                                                v-model="date"
+                                                v-model="dateFormatted"
+                                                @blur="date = parseDate(dateFormatted)"
                                                 label="Deadline"
                                                 prepend-icon="event"
                                                 readonly
                                                 v-on="on"
+                                                clearable
                                         ></v-text-field>
                                     </template>
                                     <v-date-picker v-model="date" scrollable>

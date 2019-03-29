@@ -69,7 +69,6 @@ export default class Auth extends VuexModule {
     @Mutation
     login(payload: any){
         this.singUpData = payload.result;
-        localStorage.removeItem('user');
     }
 
     @Action
@@ -77,6 +76,7 @@ export default class Auth extends VuexModule {
         firebase.auth().signOut()
             .then(()=> {
                 this.context.commit('setCurrentUser', firebase.auth().currentUser);
+                localStorage.removeItem('user');
                 Router.push('/auth');
             })
             .catch(error=> {

@@ -25,11 +25,11 @@ export default class GoalForm extends VuexModule {
         const userId = this.context.rootState.UserModule.currentUser.uid;
         firebase
             .firestore()
-            .collection('users')
+            .collection('goals')
             .doc(userId)
-            .update({
-                steps: firebase.firestore.FieldValue.arrayUnion(payload)
-            })
+            .collection('userGoals')
+            .doc()
+            .set(payload)
             .then(res=> console.log(res, 'added'))
             .catch(er=> console.log(er, 'err'))
     }

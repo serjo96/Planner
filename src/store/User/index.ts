@@ -7,15 +7,17 @@ const localUser = localStorage.getItem('user');
 export default class UserModule extends VuexModule {
     currentUser = localUser !== null ? JSON.parse(localUser): null;
 
-    @Action({commit: 'setCurrentUser'})
+    @Action
     takeCurrentUser(){
-        return  firebase.auth().currentUser;
+        this.context.commit('setCurrentUser', firebase.auth().currentUser);
     }
 
     @Mutation
     setCurrentUser(payload: any){
-        localStorage.setItem('user', JSON.stringify(payload));
-        this.currentUser = payload;
+        if(!localStorage['user']){
+            localStorage.setItem('user', JSON.stringify(payload));
+            this.currentUser = payload;
+        }
     }
 
     get userData(){
