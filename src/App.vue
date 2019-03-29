@@ -1,7 +1,7 @@
 <template>
   <div id="app">
     <v-app>
-      <router-view/>
+        <router-view></router-view>
     </v-app>
   </div>
 </template>
@@ -15,6 +15,9 @@
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   color: #2c3e50;
-  background: rgb(237, 238, 240);;
+  background: rgb(237, 238, 240);
 }
+    .pre-loader-parent {
+        position: relative;
+    }
 </style>
