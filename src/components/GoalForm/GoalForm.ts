@@ -56,7 +56,11 @@ export default class GoalForm extends Vue {
 
     onSubmit(){
         if (this.formValidate) {
-            this.addGoal({name: this.name, description: this.description, date: this.date});
+            this.addGoal({
+                name: this.name,
+                description: this.description,
+                date: this.date
+            });
             this.name = '';
             this.description = '';
             this.date = '';

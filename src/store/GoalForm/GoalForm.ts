@@ -1,9 +1,6 @@
 import { VuexModule, Module, Mutation, Action } from 'vuex-module-decorators'
 import * as firebase from 'firebase';
 import { goalPayload } from "@/store/GoalForm/interfaces";
-import UserModule from "@/store/User";
-
-
 
 
 
@@ -31,10 +28,6 @@ export default class GoalForm extends VuexModule {
             .collection('userGoals')
             .doc()
             .set(payloadData)
-            .then( (): void => {
-                    this.context.commit('setGoalsData', payloadData);
-                }
-            )
             .catch(er=> console.log(er, 'err'))
     }
 
