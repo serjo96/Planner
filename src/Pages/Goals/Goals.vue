@@ -3,26 +3,20 @@
         <v-list two-line>
 
             <template v-for="(item, index) in goalsData">
-                <v-list-tile
-                        :key="index"
-                >
+                <router-link :key="index" :to="`/goal-${item.id}`">
+                    <v-list-tile>
+                        <v-layout row wrap>
+                            <v-flex xs7>
+                                <v-list-tile-title v-html="item.name"></v-list-tile-title>
+                                <v-list-tile-sub-title v-html="item.description"></v-list-tile-sub-title>
+                            </v-flex>
 
-                    <v-list-tile-content>
-                        <v-list-tile-title v-html="item.name"></v-list-tile-title>
-                        <v-list-tile-sub-title v-html="item.description"></v-list-tile-sub-title>
-                    </v-list-tile-content>
-
-                    <v-list-tile-content>
-                        <v-checkbox
-                                :value="item.status"
-                        ></v-checkbox>
-                    </v-list-tile-content>
-
-                    <v-list-tile-action >
-                        <v-list-tile-action-text>{{ item.date }}</v-list-tile-action-text>
-                    </v-list-tile-action>
-                </v-list-tile>
-
+                            <v-flex xs3>
+                                <v-list-tile-action-text>{{ item.date }}</v-list-tile-action-text>
+                            </v-flex>
+                        </v-layout>
+                    </v-list-tile>
+                </router-link>
             </template>
         </v-list>
         <PreLoader v-if="!requestStatus"></PreLoader>

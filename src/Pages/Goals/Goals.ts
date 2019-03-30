@@ -10,12 +10,17 @@ import PreLoader from "@/components/Preloader/PreLoader.vue";
     components: {PreLoader}
 })
 export default class Goals extends Vue {
-    @Action loadGoalList: any;
+    @Action subscribeGoalList: any;
+    @Action unsubscribeFromGoals: any;
     @Getter goalsData!: [GoalsInterface];
     @Getter requestStatus!: boolean;
 
     created () {
-        this.loadGoalList();
+        this.subscribeGoalList();
+    }
+
+    beforeDestroy() {
+        this.unsubscribeFromGoals();
     }
 
 
