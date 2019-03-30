@@ -4,6 +4,7 @@ import store from '@/store';
 import Auth from "@/Pages/Auth/Auth.vue";
 import MainPage from '@/Pages/MainPage/MainPage.vue';
 import Goals from '@/Pages/Goals/Goals.vue';
+import Goal from "@/Pages/Goal/Goal.vue";
 
 
 Vue.use(Router);
@@ -35,6 +36,14 @@ const Route = new Router({
                     title: (route: any) => route.name
                 }
             },
+            {
+                path: '/goal-:id',
+                name: 'Goal',
+                component: Goal,
+                meta: {
+                    title: (route: any) => route.name
+                }
+            }
         ]
     },
 

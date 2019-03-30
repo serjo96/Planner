@@ -5,6 +5,7 @@ import UserModule from "./User";
 import Auth from "./Auth/Auth";
 import GoalForm from "@/store/GoalForm/GoalForm";
 import GoalList from "@/store/GoalList/GoalList";
+import Goal from "@/store/Goal/Goal";
 
 Vue.use(Vuex);
 
@@ -12,7 +13,8 @@ export default new Store<State>({
     modules: {
         GoalForm,
         GoalList,
+        Goal,
         UserModule,
-        Auth
+        Auth,
     }
 });
