@@ -1,6 +1,6 @@
-# goal-path
+# Planner
 
-> Path to goal on vue.js
+> Planner
 
 ## Build Setup
 
