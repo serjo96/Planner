@@ -1,6 +1,7 @@
 import { VuexModule, Module, Mutation, Action } from 'vuex-module-decorators'
 import * as firebase from 'firebase';
 import GoalsInterface from "@/Core/Interfaces/Goals";
+import Router from "@/Core/router/router";
 
 
 
@@ -26,18 +27,6 @@ export default class GoalList extends VuexModule {
                 err=>  {
                 console.error(err);
             });
-
-        // firebase
-        //     .firestore()
-        //     .collection('goals')
-        //     .doc(userId)
-        //     .collection('userGoals')
-        //     .get()
-        //     .then((querySnapshot) => {
-        //         this.context.commit('setGoalsData', querySnapshot.docs.map(doc=> doc.data()));
-        //         this.context.commit('changeRequestStatus', true);
-        //     })
-        //     .catch(err=> console.log(err))
     }
 
     @Action
@@ -57,6 +46,23 @@ export default class GoalList extends VuexModule {
     @Mutation
     changeRequestStatus(status: boolean){
         this.isFetching = status;
+    }
+
+    @Action
+    deleteGoalFromList(id: string){
+        const userId = this.context.rootState.UserModule.currentUser.uid;
+        // this.context.commit('changeRequestStatus', false);
+        firebase.firestore().collection('goals')
+            .doc(userId)
+            .collection('userGoals')
+            .doc(id)
+            .delete()
+            .then(()=>{
+                this.context.commit('addSnackBarMessage', {
+                    message: 'Goal success delete',
+                    color: 'success'
+                });
+            })
     }
 
     get goalsData(){

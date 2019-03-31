@@ -1,7 +1,8 @@
 import {VuexModule, Module, Mutation, Action} from 'vuex-module-decorators'
 import * as firebase from 'firebase';
-import { SingUpActionPayload, ResponseError, SingUpMutationPayload} from "./interfaces/singUp";
 import Router from "@/Core/router/router";
+import { ResponseError } from "@/Core/Interfaces/Global";
+import { SingUpActionPayload } from "./interfaces/singUp";
 
 
 

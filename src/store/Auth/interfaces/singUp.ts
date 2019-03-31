@@ -1,7 +1,4 @@
-export interface ResponseError {
-    code: string;
-    message: string;
-}
+import {ResponseError} from "@/Core/Interfaces/Global";
 
 export interface SingUpActionPayload {
     password: string;

@@ -1,4 +1,4 @@
-import {ResponseError} from "./Auth/interfaces/singUp";
+import {ResponseError} from "@/Core/Interfaces/Global";
 import UserModule from "./User";
 
 export interface State {
