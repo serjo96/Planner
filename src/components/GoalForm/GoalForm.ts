@@ -28,6 +28,7 @@ export default class GoalForm extends Vue {
     ];
 
     @Mutation dialogVisibility: any;
+    @Mutation addSnackBarMessage: any;
     @Action addGoal: any;
 
     @Watch('date')
@@ -65,6 +66,10 @@ export default class GoalForm extends Vue {
             this.description = '';
             this.date = '';
             this.dialogVisibility(false);
+            this.addSnackBarMessage({
+                message: 'Goal success added',
+                color: 'success'
+            })
         }
     }
 }
