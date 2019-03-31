@@ -1,8 +1,8 @@
-import Vue from 'vue'
-import Component from 'vue-class-component'
-import { Prop } from 'vue-property-decorator'
-import { Action, Getter, Mutation } from 'vuex-class';
-import { ResponseError } from "@/store/Auth/interfaces/singUp";
+import Vue from 'vue';
+import { Prop, Component } from 'vue-property-decorator';
+import { Action, Mutation } from 'vuex-class';
+import { ResponseError } from '@/Core/Interfaces/Global';
+
 
 
 @Component({
@@ -21,9 +21,9 @@ export default class Login extends Vue {
     password: string = '';
 
     @Prop(Function) changeComponent!: Function;
+    @Prop() readonly AuthError!: ResponseError;
     @Action loginAction: any;
     @Mutation clearErrorData: any;
-    @Getter AuthError!: ResponseError;
 
     get formValidate(){
         return (this.$refs.form as Vue & { validate: () => boolean }).validate()

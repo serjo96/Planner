@@ -1,6 +1,5 @@
 import Vue from 'vue'
-import Component from 'vue-class-component'
-import { Watch } from 'vue-property-decorator'
+import { Watch, Component } from 'vue-property-decorator'
 import { Action, Mutation } from 'vuex-class';
 
 @Component({
@@ -66,10 +65,6 @@ export default class GoalForm extends Vue {
             this.description = '';
             this.date = '';
             this.dialogVisibility(false);
-            this.addSnackBarMessage({
-                message: 'Goal success added',
-                color: 'success'
-            })
         }
     }
 }

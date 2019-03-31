@@ -1,8 +1,8 @@
 import Vue from 'vue'
-import Component from 'vue-class-component'
-import { Prop } from 'vue-property-decorator'
+import { Prop, Component } from 'vue-property-decorator'
 import { Action, Mutation, Getter } from 'vuex-class';
-import {ResponseError} from "@/store/Auth/interfaces/singUp";
+import { ResponseError } from '@/Core/Interfaces/Global';
+
 
 
 @Component({

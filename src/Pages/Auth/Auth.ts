@@ -1,10 +1,10 @@
 import Vue from 'vue';
-import Component from 'vue-class-component';
-import { Watch } from 'vue-property-decorator';
+import { Watch, Component } from 'vue-property-decorator';
 import { Getter } from 'vuex-class';
 import Login from "@/components/Auth/Login/Login.vue";
 import SignUp from "@/components/Auth/SignUp/SignUp.vue";
 import ResetPassword from "@/components/Auth/ResetPassword/ResetPassword.vue";
+import { ResponseError } from "@/Core/Interfaces/Global";
 
 
 @Component({
@@ -13,7 +13,8 @@ import ResetPassword from "@/components/Auth/ResetPassword/ResetPassword.vue";
 export default class Auth extends Vue {
     currentComponent: string = 'Login';
 
-    @Getter('userData') User: any;
+    @Getter('userData') readonly User: any;
+    @Getter readonly AuthError!: ResponseError;
 
     @Watch('User', {deep: true})
     onUserChange(auth: any) {

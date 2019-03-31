@@ -3,6 +3,7 @@
         <transition name="fade" mode="out-in">
             <component
                     :class="['auth__form', getAuthComponent === 'SignUp'? 'auth__form--sign-up' :'']"
+                    :AuthError="AuthError"
                     :changeComponent="changeComponent"
                     :is="getAuthComponent"
             ></component>

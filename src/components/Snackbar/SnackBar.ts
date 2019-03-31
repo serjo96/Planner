@@ -1,7 +1,6 @@
 import Vue from 'vue'
-import Component from 'vue-class-component'
 import { Mutation, Getter } from 'vuex-class';
-import { Watch } from 'vue-property-decorator'
+import { Watch, Component } from 'vue-property-decorator'
 import {snackBarInterface} from "@/store/Global/Interfaces/Interface";
 
 

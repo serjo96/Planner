@@ -1,5 +1,5 @@
 import Vue from 'vue';
-import Component from 'vue-class-component';
+import { Component } from 'vue-property-decorator';
 import GoalForm from "@/components/GoalForm/GoalForm.vue";
 import TheAside from "@/components/Aside/TheAside.vue";
 import SnackBar from "@/components/Snackbar/SnackBar.vue";

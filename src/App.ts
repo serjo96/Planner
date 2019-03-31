@@ -1,11 +1,7 @@
 import Vue from 'vue'
-import Component from 'vue-class-component'
-import * as firebase from 'firebase';
+import { Component } from 'vue-property-decorator'
 import {  Action, Getter } from 'vuex-class';
-
 import 'vuetify/dist/vuetify.min.css';
-import store from "@/store";
-
 
 
 @Component({
