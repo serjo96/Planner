@@ -1,0 +1,20 @@
+.goals {
+  min-height: 100%;
+  &__list {
+    padding: 0 10px
+  }
+  &__list-item {
+    background: #fff;
+    padding: 3px 10px;
+    box-shadow: 0 1px 0 0 #d7d8db, 0 0 0 1px #e3e4e8;
+    &:not(:first-child){
+      margin: 15px 0 0;
+    }
+
+  }
+  &__list-item-link {
+    display: block
+    text-decoration: none
+    margin: 5px 0
+  }
+}
