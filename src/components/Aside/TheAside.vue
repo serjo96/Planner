@@ -5,9 +5,9 @@
                 <div class="aside__profile-photo">
                     <v-avatar
 
-                            color="grey lighten-4"
+                            color="deep-purple lighten-5"
                     >
-                        <img src="https://vuetifyjs.com/apple-touch-icon-180x180.png" alt="avatar">
+                        <span>{{userEmail[0]}}</span>
                     </v-avatar>
                 </div>
 
