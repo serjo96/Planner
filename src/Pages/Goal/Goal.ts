@@ -1,10 +1,12 @@
 import Vue from 'vue'
 import { Component } from 'vue-property-decorator'
 import { Action, Getter } from 'vuex-class';
+import PreLoader from "@/components/Preloader/PreLoader.vue";
+import StepList from "@/components/Step-list/StepList.vue";
 
 
 @Component({
-
+    components: {PreLoader, StepList}
 })
 export default class Goal extends Vue {
     gradient: string = 'to top right, rgba(63,81,181, .7), rgba(25,32,72, .7)';
@@ -13,6 +15,8 @@ export default class Goal extends Vue {
     @Action deleteGoal: any;
     @Getter readonly getGoalData: any;
     @Getter readonly loadingStatus: any;
+
+
 
     get getGoadId(){
         return this.$route.params.id;
@@ -29,6 +33,8 @@ export default class Goal extends Vue {
     onDeleteGoal(){
         this.deleteGoal(this.getGoadId);
     }
+
+
 
 
 }

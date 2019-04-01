@@ -1,6 +1,7 @@
 import { VuexModule, Module, Mutation, Action } from 'vuex-module-decorators'
 import * as firebase from 'firebase';
 import { goalPayload } from "@/store/GoalForm/interfaces";
+import {ResponseError} from "@/Core/Interfaces/Global";
 
 
 
@@ -28,7 +29,18 @@ export default class GoalForm extends VuexModule {
             .collection('userGoals')
             .doc()
             .set(payloadData)
-            .catch(er=> console.log(er, 'err'))
+            .then((): void=>{
+                this.context.dispatch('addSnackBarMessage', {
+                    message: 'Goal success added',
+                    color: 'success'
+                })
+            })
+            .catch((err: ResponseError): void=> {
+                this.context.dispatch('addSnackBarMessage', {
+                    message: err.message,
+                    color: 'error'
+                })
+            })
     }
 
 }

@@ -57,7 +57,7 @@ export default class GoalList extends VuexModule {
             .collection('userGoals')
             .doc(id)
             .delete()
-            .then(()=>{
+            .then(()=> {
                 this.context.commit('addSnackBarMessage', {
                     message: 'Goal success delete',
                     color: 'success'
