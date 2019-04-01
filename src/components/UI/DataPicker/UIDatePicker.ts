@@ -12,6 +12,7 @@ export default class UIDatePicker extends Vue {
     menu: boolean = false;
 
     @Prop(String) label!: string;
+    @Prop(Boolean) solo!: boolean;
 
     @Watch('dateFormatted')
     ParentEmitterData(){

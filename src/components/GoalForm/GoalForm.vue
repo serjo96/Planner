@@ -39,35 +39,10 @@
                             </v-flex>
 
                             <v-flex xs12>
-                                <v-menu
-                                        ref="menu"
-                                        v-model="menu"
-                                        :close-on-content-click="false"
-                                        :nudge-right="40"
-                                        :return-value.sync="date"
-                                        lazy
-                                        transition="scale-transition"
-                                        offset-y
-                                        full-width
-                                        min-width="290px"
-                                >
-                                    <template v-slot:activator="{ on }">
-                                        <v-text-field
-                                                v-model="dateFormatted"
-                                                @blur="date = parseDate(dateFormatted)"
-                                                label="Deadline"
-                                                prepend-icon="event"
-                                                readonly
-                                                v-on="on"
-                                                clearable
-                                        ></v-text-field>
-                                    </template>
-                                    <v-date-picker v-model="date" scrollable>
-                                        <v-spacer></v-spacer>
-                                        <v-btn flat color="primary" @click="menu = false">Cancel</v-btn>
-                                        <v-btn flat color="primary" @click="$refs.menu.save(date)">OK</v-btn>
-                                    </v-date-picker>
-                                </v-menu>
+                                <UIDatePicker
+                                        label="Deadline"
+                                        v-model="date"
+                                ></UIDatePicker>
                             </v-flex>
 
                         </v-layout>

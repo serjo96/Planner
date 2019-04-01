@@ -17,7 +17,7 @@
                     readonly
                     v-on="on"
                     clearable
-                    solo
+                    :solo="solo"
             ></v-text-field>
         </template>
         <v-date-picker v-model="selectedDate" scrollable>

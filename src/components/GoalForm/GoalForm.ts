@@ -1,8 +1,10 @@
 import Vue from 'vue'
-import { Watch, Component } from 'vue-property-decorator'
+import { Component } from 'vue-property-decorator'
 import { Action, Mutation } from 'vuex-class';
+import UIDatePicker from "@/components/UI/DataPicker/UIDatePicker.vue";
 
 @Component({
+    components: { UIDatePicker },
     computed: {
         modal: {
             get () {
@@ -18,9 +20,8 @@ export default class GoalForm extends Vue {
     name: string = '';
     description: string = '';
     date: string = '';
-    dateFormatted: string = '';
-    menu: boolean = false;
     valid: boolean = false;
+
 
     nameRules: any = [
         (v: string) => !!v || 'Name is required',
@@ -30,24 +31,6 @@ export default class GoalForm extends Vue {
     @Mutation addSnackBarMessage: any;
     @Action addGoal: any;
 
-    @Watch('date')
-    onChangeDate(){
-        this.dateFormatted = this.formatDate(this.date)
-    }
-
-    formatDate (date: string) {
-        if (!date) return '';
-
-        const [year, month, day] = date.split('-');
-        return `${month}.${day}.${year}`
-    }
-
-    parseDate (date: any) {
-        if (!date) return '';
-
-        const [month, day, year] = date.split('.');
-        return `${year}-${month.padStart(2, '0')}-${day.padStart(2, '0')}`
-    }
 
 
     get formValidate(){

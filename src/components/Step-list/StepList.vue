@@ -29,6 +29,7 @@
                     <UIDatePicker
                             label="Deadline"
                             v-model="date"
+                            solo
                     ></UIDatePicker>
                 </div>
                 <v-btn @click="onSubmit">Add step</v-btn>
