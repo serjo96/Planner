@@ -1,6 +1,6 @@
-# goal-path
+# Planner
 
-> Path to goal on vue.js
+> Planner on vue/vuex + typescript, vuetifyjs, firestore with pwa support
 
 ## Build Setup
 
