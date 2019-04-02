@@ -13,7 +13,7 @@
                         <h1 class="goal__name">{{getGoalData.name}}</h1>
                         <div class="goal__date">
                             <div v-if="getGoalData.createdDate" class="goal__date-created">{{getGoalData.createdDate}}</div>
-                            <div v-if="getGoalData.date" class="goal__date-deadline">Deadline: {{getGoalData.date}}</div>
+                            <div v-if="getGoalData.date" class="goal__date-deadline">Goal deadline: {{normalizeDate(getGoalData.date)}}</div>
                         </div>
                         <p class="goal__description" v-if="getGoalData.description">{{getGoalData.description}}</p>
                         <v-btn @click="onDeleteGoal">Delete</v-btn>

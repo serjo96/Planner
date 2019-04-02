@@ -3,6 +3,7 @@ import { Component } from 'vue-property-decorator'
 import { Action, Getter } from 'vuex-class';
 import PreLoader from "@/components/Preloader/PreLoader.vue";
 import StepList from "@/components/Step-list/StepList.vue";
+import { normalizeDateByDate } from "@/Helpers/DateHelper";
 
 
 @Component({
@@ -34,7 +35,9 @@ export default class Goal extends Vue {
         this.deleteGoal(this.getGoadId);
     }
 
-
+    normalizeDate(date: string){
+        return normalizeDateByDate(date)
+    }
 
 
 }
