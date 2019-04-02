@@ -46,13 +46,13 @@
                 >
 
                     <template v-slot:icon>
-                        <v-btn fab small>
+                        <v-btn @click="onChangeStepStatus(Steps, index)" fab small>
                             <v-icon>{{stepStatus(step.done).icon}}</v-icon>
                         </v-btn>
                     </template>
 
                     <template v-if="step.deadline" v-slot:opposite>
-                        <span>{{normalDate(step.deadline.seconds)}}</span>
+                        <span>Deadline date: {{normalizeDate(step.deadline.seconds)}}</span>
                     </template>
 
                     <v-card class="elevation-2">
@@ -61,6 +61,8 @@
                         <v-card-text>
                             {{step.description}}
                         </v-card-text>
+
+                        <v-btn @click="deleteStep(Steps, index)" >Delete step</v-btn>
                     </v-card>
                 </v-timeline-item>
             </v-timeline>

@@ -4,3 +4,10 @@ export interface stepPayload {
     date: Date;
     done: boolean;
 }
+
+
+export interface changeStepStatus {
+    id: string;
+    stepStatus: boolean;
+    stepData: stepPayload;
+}

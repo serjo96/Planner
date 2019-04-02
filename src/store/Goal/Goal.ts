@@ -2,7 +2,7 @@ import { VuexModule, Module, Mutation, Action } from 'vuex-module-decorators'
 import * as firebase from 'firebase';
 import GoalsInterface from "@/Core/Interfaces/Goals";
 import Router from "@/Core/router/router";
-import {stepPayload} from "@/store/Goal/interfaces/goalInterfaces";
+import {changeStepStatus, stepPayload} from "@/store/Goal/interfaces/goalInterfaces";
 import {ResponseError} from "@/Core/Interfaces/Global";
 
 
@@ -31,6 +31,29 @@ export default class Goal extends VuexModule {
                     });
                 });
     };
+
+    @Action
+    changeStepList( {id, stepsArray}: {id: string; stepsArray: [changeStepStatus]} ){
+        const userId = this.context.rootState.UserModule.currentUser.uid;
+
+        firebase.firestore().collection('goals')
+            .doc(userId)
+            .collection('userGoals')
+            .doc(id)
+            .update({steps: stepsArray})
+            .then(()=>{
+                this.context.commit('addSnackBarMessage', {
+                    message: 'Step status changed',
+                    color: 'success'
+                });
+            })
+            .catch((err: ResponseError)=> {
+                this.context.commit('addSnackBarMessage', {
+                    message: err.message,
+                    color: 'error'
+                });
+            })
+    }
 
     @Action
     deleteGoal(id: string) {

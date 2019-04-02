@@ -3,6 +3,7 @@ import { Component, Watch, Prop } from 'vue-property-decorator';
 import { Action, Getter, Mutation } from 'vuex-class';
 import { stepPayload } from "@/store/Goal/interfaces/goalInterfaces";
 import UIDatePicker from "@/components/UI/DataPicker/UIDatePicker.vue";
+import {normalizeDateBySeconds} from "@/Helpers/DateHelper";
 
 
 @Component({
@@ -19,14 +20,13 @@ export default class StepList extends Vue {
     ];
 
     @Action addGoalStep: any;
+    @Action changeStepList: any;
     @Prop(String) GoalId!: string;
     @Prop() Steps!: stepPayload;
 
 
-    normalDate(seconds: number){
-        const date = new Date(1970, 0, 1);
-        date.setSeconds(seconds);
-        return date;
+    normalizeDate(seconds: number){
+        return normalizeDateBySeconds(seconds);
     }
 
     stepStatus(status: boolean){
@@ -36,7 +36,24 @@ export default class StepList extends Vue {
         };
     }
 
+    onChangeStepStatus(stepArr: [stepPayload], indx: number){
+        const steps = stepArr;
+        steps[indx].done = !steps[indx].done;
+        this.changeStepList({
+            id: this.GoalId,
+            stepsArray: steps,
+        })
+    }
 
+    deleteStep(stepArr: [stepPayload], indx: number){
+        const steps = stepArr;
+        steps.splice(indx, 1);
+
+        this.changeStepList({
+            id: this.GoalId,
+            stepsArray: steps,
+        })
+    }
 
 
     get formValidate(){
