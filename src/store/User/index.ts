@@ -1,5 +1,6 @@
 import {VuexModule, Module, Mutation, Action} from 'vuex-module-decorators'
 import * as firebase from 'firebase';
+import {ResponseError} from "@/Core/Interfaces/Global";
 
 const localUser = localStorage.getItem('user');
 
@@ -14,10 +15,24 @@ export default class UserModule extends VuexModule {
 
     @Mutation
     setCurrentUser(payload: any){
-        if(!localStorage['user']){
-            localStorage.setItem('user', JSON.stringify(payload));
-            this.currentUser = payload;
-        }
+        const userInfo = {...payload.providerData[0], uid: payload.uid};
+        localStorage.setItem('user', JSON.stringify(userInfo));
+        this.currentUser = userInfo;
+    }
+
+    @Action
+    updateProfile(name: string, photo: string){
+
+        firebase.auth().currentUser!.updateProfile({
+                displayName: name,
+                photoURL: photo
+            })
+            .catch((err: ResponseError)=> {
+                this.context.commit('addSnackBarMessage', {
+                    message: err.message,
+                    color: 'error'
+                });
+            });
     }
 
     get userData(){
