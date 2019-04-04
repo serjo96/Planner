@@ -1,0 +1,7 @@
+@import '~vuetify/src/stylus/theme.styl'
+
+$material-dark.background = $bgColor
+
+
+@import '~vuetify/src/stylus/main.styl'
+
