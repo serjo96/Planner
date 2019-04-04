@@ -15,7 +15,7 @@ export default class UserModule extends VuexModule {
 
     @Mutation
     setCurrentUser(payload: any){
-        const userInfo = {...payload.providerData[0], uid: payload.uid};
+        const userInfo = payload ? {...payload.providerData[0], uid: payload.uid}: null;
         localStorage.setItem('user', JSON.stringify(userInfo));
         this.currentUser = userInfo;
     }
