@@ -39,6 +39,11 @@ export default class Auth extends VuexModule {
            });
     }
 
+    @Mutation
+    setSingUpResult(payload: any) {
+        this.singUpData = payload.result;
+    }
+
     @Action({rawError: true})
     loginAction(payload: any){
         firebase.auth().signInAndRetrieveDataWithEmailAndPassword(payload.email, payload.password)
@@ -63,11 +68,6 @@ export default class Auth extends VuexModule {
     }
 
     @Mutation
-    setSingUpResult(payload: any) {
-        this.singUpData = payload.result;
-    }
-
-    @Mutation
     login(payload: any){
         this.singUpData = payload.result;
     }
@@ -75,12 +75,14 @@ export default class Auth extends VuexModule {
     @Action
     logOut(){
         firebase.auth().signOut()
-            .then(()=> {
+            .then((res)=> {
+                console.log(res)
                 this.context.commit('setCurrentUser', firebase.auth().currentUser);
                 localStorage.removeItem('user');
                 Router.push('/auth');
             })
             .catch(error=> {
+                console.log(error);
                 this.context.commit('setCurrentUser', firebase.auth().currentUser);
             });
     }

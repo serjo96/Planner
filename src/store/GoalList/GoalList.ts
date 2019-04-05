@@ -38,6 +38,7 @@ export default class GoalList extends VuexModule {
             .onSnapshot(():void =>{})
     }
 
+
     @Mutation
     setGoalsData(payload: [GoalsInterface]){
         this.goals = payload;

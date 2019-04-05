@@ -5,9 +5,11 @@ body {
   color: #fff;
   background: $bgColor;
 }
+
 .pre-loader-parent {
   position: relative;
 }
+
 img{
   max-width: 100%;
 }
