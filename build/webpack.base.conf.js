@@ -3,7 +3,8 @@ const path = require('path');
 const utils = require('./utils');
 const config = require('../config');
 const vueLoaderConfig = require('./vue-loader.conf');
-const { VueLoaderPlugin } = require('vue-loader')
+const { VueLoaderPlugin } = require('vue-loader');
+
 
 function resolve (dir) {
   return path.join(__dirname, '..', dir)
@@ -62,7 +63,7 @@ module.exports = {
       },
       {
           test: /\.styl$/,
-          loader: 'css-loader!stylus-loader?paths=node_modules/bootstrap-stylus/stylus/'
+          loader: ['style-loader', 'css-loader', 'autoprefixer-loader?browsers=last 5 version', 'stylus-loader']
       },
       {
         test: /\.(png|jpe?g|gif|svg)(\?.*)?$/,
