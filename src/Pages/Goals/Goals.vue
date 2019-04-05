@@ -1,12 +1,14 @@
 <template>
     <div class="goals">
+        <h1 class="page-title">Goals</h1>
+
         <div class="goals__list">
+            <transition-group name="goals__list-animation">
+
             <div
                     v-for="(item, index) in goalsData"
                     :key="index"
-                    class="goals__list-item"
-            >
-
+                    class="goals__list-item">
 
                     <v-layout row wrap>
 
@@ -42,9 +44,8 @@
                             </v-btn>
                         </v-flex>
                     </v-layout>
-
-
-            </div>
+                </div>
+            </transition-group>
         </div>
 
         <PreLoader v-if="!requestStatus"></PreLoader>
