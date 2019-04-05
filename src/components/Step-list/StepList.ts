@@ -1,13 +1,14 @@
 import Vue from 'vue';
-import { Component, Watch, Prop } from 'vue-property-decorator';
-import { Action, Getter, Mutation } from 'vuex-class';
+import { Component, Prop } from 'vue-property-decorator';
+import { Action } from 'vuex-class';
+import draggable from "vuedraggable";
+import { normalizeDateBySeconds } from "@/Helpers/DateHelper";
 import { stepPayload } from "@/store/Goal/interfaces/goalInterfaces";
 import UIDatePicker from "@/components/UI/DataPicker/UIDatePicker.vue";
-import {normalizeDateBySeconds} from "@/Helpers/DateHelper";
 
 
 @Component({
-    components: { UIDatePicker }
+    components: { UIDatePicker, draggable }
 })
 export default class StepList extends Vue {
     stepName: string = '';
@@ -21,8 +22,30 @@ export default class StepList extends Vue {
 
     @Action addGoalStep: any;
     @Action changeStepList: any;
+    @Action sortList: any;
     @Prop(String) GoalId!: string;
     @Prop() Steps!: stepPayload;
+
+
+    get myList() {
+        return this.$store.state.Goal.goalData.steps
+    }
+
+    set myList(value) {
+        this.sortList({
+            id: this.GoalId,
+            list:value
+        })
+    }
+
+    get dragOptions() {
+        return {
+            animation: 150,
+            group: "description",
+            disabled: false,
+            ghostClass: "ghost"
+        };
+    }
 
 
     normalizeDate(seconds: number){
