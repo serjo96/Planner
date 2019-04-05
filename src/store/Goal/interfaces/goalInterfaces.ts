@@ -1,7 +1,7 @@
 export interface stepPayload {
     name: string;
     description: string;
-    date: Date;
+    date: Date | string;
     done: boolean;
 }
 
