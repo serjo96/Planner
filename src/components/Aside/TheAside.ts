@@ -12,12 +12,7 @@ export default class TheAside extends Vue {
     @Action logOut: any;
     @Mutation('dialogVisibility') dialogView: any;
 
-    get userEmail(){
-        if(this.User){
-            return this.User.email;
-        }
-        return null;
-    }
+
 
 
 }

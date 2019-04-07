@@ -47,7 +47,7 @@
                         ></v-progress-linear>
                         <div v-if="password.length >= 6"
                              class="sign-up__password-status-text"
-                             v-bind:class="color() + '--text'"
+                             :class="color() + '--text'"
                         >
                             {{passwordStatus}}
                         </div>
@@ -57,7 +57,7 @@
 
 
                 <v-btn
-                        v-bind:block="true"
+                        :block="true"
                         @click="onSubmit"
                         color="success">
                     SignUp
