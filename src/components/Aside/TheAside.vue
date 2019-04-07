@@ -1,24 +1,32 @@
 <template>
     <div class="aside">
-        <v-list>
-            <v-list-tile class="aside__profile">
-                <div class="aside__profile-photo">
-                    <v-avatar
+        <div class="aside__profile">
+            <div class="aside__profile-buttons">
+                <v-icon color="blue-grey lighten-1">settings</v-icon>
 
-                            color="deep-purple lighten-5"
-                    >
-                        <span>{{userEmail[0]}}</span>
-                    </v-avatar>
-                </div>
+                <v-btn @click="logOut" icon>
+                    <v-icon color="blue-grey lighten-1">exit_to_app</v-icon>
+                </v-btn>
 
-                <v-list-tile-content>
-                    <!--<div class="aside__profile-email">{{userEmail}}</div>-->
-                    <v-list-tile-sub-title v-html="userEmail"></v-list-tile-sub-title>
-                </v-list-tile-content>
+            </div>
+            <div class="aside__profile-photo">
+                <v-avatar color="deep-purple lighten-5">
+                    <div v-if="!User.photoURL">{{User.displayName ? User.displayName[0] : User.email[0]}}</div>
+                    <img v-if="User.photoURL" :src="User.photoURL" alt="">
+                </v-avatar>
+            </div>
+            <div class="aside__profile-name">
+                <div v-if="!User.displayName">{{User.email}}</div>
+                <div>{{User.displayName}}</div>
+            </div>
 
-            </v-list-tile>
-        </v-list>
-        <v-btn @click="logOut">logout</v-btn>
+        </div>
+
+        <div class="aside__nav">
+            <v-btn to="/">Home</v-btn>
+            <v-btn to="/goals">Goals</v-btn>
+            <v-btn to="/profile">Profile</v-btn>
+        </div>
 
 
         <v-bottom-nav
@@ -26,7 +34,6 @@
                 absolute
                 dark
         >
-
             <v-btn
                     color="teal"
                     flat
