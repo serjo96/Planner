@@ -1,29 +1,39 @@
 .goals {
-  min-height: 100%;
-  &__list {
-    padding: 0 10px
-  }
-  &__list-animation{
-    &-enter-active, &-leave-active{
-      transition: all 1s;
+  min-height: 100%
+  &__list-animation {
+    &-enter-active, &-leave-active {
+      transition: all 1s
     }
     &-enter, &-leave-to{
-      opacity: 0;
-      transform: translateY(30px);
+      opacity: 0
+      transform: translateY(30px)
     }
   }
   &__list-item {
-    background: #21293e;
-    padding: 3px 10px;
-    box-shadow: 0 1px 0 0 #040c25, 0 0 0 1px #494949;
-    &:not(:first-child){
-      margin: 15px 0 0;
+    background: #21293e
+    padding: 3px 10px
+    box-shadow: 0 2px 2px 0 rgba(26, 24, 29, 0.16), 0 1px 4px 0 rgba(26, 24, 29, 0.12)
+    border: 1px solid transparent
+    transition: all .3s
+    &:hover {
+      border-color: #58447d
+    }
+    &:not(:first-child) {
+      margin: 15px 0 0
     }
 
   }
   &__list-item-link {
     display: block
+    height: 100%
     text-decoration: none
     margin: 5px 0
+    color: #7f8691
   }
+  &__list-item-title {
+    font-size: 16px
+    font-weight: bold
+    color: #9ba9bd
+  }
+
 }
