@@ -13,6 +13,8 @@
     &__photo {
       display: flex
       justify-content: center
+      flex-direction: column
+      align-items: center
     }
 
     &__name {
@@ -28,10 +30,33 @@
       border-top: 1px solid #ccc
     }
 
+    &__info-item {
+      padding: 15px 0
+      &:not(:last-child){
+        border-bottom: 1px solid #ccc
+      }
+    }
+
+    &__info-item-edit{
+      margin-top: 15px
+    }
+
+    &__item-edit-buttons{
+      display: flex
+      justify-content: space-between
+      .v-btn{
+        margin-left: 0
+        margin-right: 0
+      }
+    }
+
     &__info-item-title {
       color: #fff
     }
     &__info-item-content {
       font-size: 13px
+      display: flex
+      justify-content: space-between
+      align-items: baseline
     }
 }
