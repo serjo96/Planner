@@ -14,6 +14,7 @@ export default class Goal extends Vue {
 
     @Action getGoal: any;
     @Action deleteGoal: any;
+    @Action unsubscribeFromGoal: any;
     @Getter readonly getGoalData: any;
     @Getter readonly loadingStatus: any;
 
@@ -28,7 +29,7 @@ export default class Goal extends Vue {
     }
 
     beforeDestroy(){
-
+        this.unsubscribeFromGoal()
     }
 
     onDeleteGoal(){
