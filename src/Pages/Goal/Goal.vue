@@ -4,7 +4,6 @@
             height="100%"
             :gradient="gradient"
             dark
-            src="https://cdn.vuetifyjs.com/images/parallax/material2.jpg"
     >
         <v-container fill-height>
             <v-layout align-center>
