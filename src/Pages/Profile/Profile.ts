@@ -1,11 +1,11 @@
 import Vue from 'vue'
-import { Component } from 'vue-property-decorator'
+import { Component, Watch } from 'vue-property-decorator'
 import { Action, Getter } from 'vuex-class';
-import UploadPhotoDialog from "@/components/UploadPhotoDialog/UploadPhotoDialog.vue";
+import ImageSelector from "@/components/ImageSelector/ImageSelector.vue";
 
 
 @Component({
-    components: { UploadPhotoDialog }
+    components: { ImageSelector }
 })
 export default class Profile extends Vue {
     uploadPhotoDialog: boolean = false;
@@ -31,6 +31,7 @@ export default class Profile extends Vue {
     @Action updateName: any;
     @Action changeEmail: any;
     @Getter('userData') User: any;
+    @Getter getRequestResponse: any;
 
 
     created(){
@@ -51,13 +52,21 @@ export default class Profile extends Vue {
 
     onChangeEmail(){
         if(this.fieldValidate('emailRef') && this.fieldValidate('passwordRef')){
-            this.editEmail = false;
             this.changeEmail({
                 email: this.email,
                 password: this.password
             });
+
         }
     }
 
+    @Watch('getRequestResponse')
+    requestResponseWatcher(){
+        if(this.getRequestResponse){
+            this.editEmail = false;
+            this.password = '';
+            this.email = '';
+        }
+    }
 
 }
