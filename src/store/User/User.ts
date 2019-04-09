@@ -1,16 +1,18 @@
-import {VuexModule, Module, Mutation, Action} from 'vuex-module-decorators'
-import * as firebase from 'firebase';
-import {ResponseError} from "@/Core/Interfaces/Global";
+import  {VuexModule, Module, Mutation, Action } from 'vuex-module-decorators'
+import { auth, storage } from 'firebase';
+import { ResponseError } from '@/Core/Interfaces/Global';
 
 const localUser = localStorage.getItem('user');
 
 @Module
 export default class UserModule extends VuexModule {
     currentUser = localUser !== null ? JSON.parse(localUser): null;
+    requestResponse: boolean  = false;
+
 
     @Action
     takeCurrentUser(){
-        this.context.commit('setCurrentUser', firebase.auth().currentUser);
+        this.context.commit('setCurrentUser', auth().currentUser);
     }
 
     @Mutation
@@ -22,7 +24,7 @@ export default class UserModule extends VuexModule {
 
     @Action({rawError: true})
     updateName(name: string){
-        firebase.auth().currentUser!.updateProfile({
+        auth().currentUser!.updateProfile({
                 displayName: name,
                 photoURL: this.currentUser.photoURL
             })
@@ -44,12 +46,12 @@ export default class UserModule extends VuexModule {
 
     @Action({rawError: true})
     changeEmail({email, password} : {email: string; password: string}){
-        console.log(password)
-        this.context.dispatch('reauthenticate' ,password)
+        this.context.dispatch('reauthenticate', password)
             .then(
             ()=>{
-                firebase.auth().currentUser!.updateEmail(email)
+                auth().currentUser!.updateEmail(email)
                     .then(()=> {
+                        this.context.commit('changeRequestResponse', true);
                         this.context.dispatch('takeCurrentUser');
                         this.context.commit('addSnackBarMessage', {
                             message: 'Email success changed',
@@ -57,13 +59,15 @@ export default class UserModule extends VuexModule {
                         });
                     })
                     .catch((err: ResponseError)=> {
+                        this.context.commit('changeRequestResponse', false);
                         this.context.commit('addSnackBarMessage', {
                             message: err.message,
                             color: 'error'
                         });
                     });
-            }
-        ).catch((err: ResponseError)=> {
+            })
+            .catch((err: ResponseError)=> {
+                this.context.commit('changeRequestResponse', false);
                 this.context.commit('addSnackBarMessage', {
                     message: err.message,
                     color: 'error'
@@ -73,14 +77,47 @@ export default class UserModule extends VuexModule {
 
     @Action({rawError: true})
     reauthenticate(currentPassword: string){
-        const user = firebase.auth().currentUser;
-        const cred = firebase.auth.EmailAuthProvider.credential(
+        const user = auth().currentUser;
+        const cred = auth.EmailAuthProvider.credential(
             this.currentUser.email, currentPassword);
         return user!.reauthenticateWithCredential(cred);
     };
 
+    @Action
+    updateProfilePhoto(photo: string){
+        auth().currentUser!.updateProfile({
+            displayName: this.currentUser.displayName,
+            photoURL: photo
+        })
+            .then(()=> {
+                this.context.dispatch('takeCurrentUser');
+                this.context.commit('addSnackBarMessage', {
+                    message: 'Photo success changed',
+                    color: 'success'
+                });
+            })
+            .catch((err: ResponseError)=> {
+                this.context.commit('addSnackBarMessage', {
+                    message: err.message,
+                    color: 'error'
+                });
+            });
+    }
+
+    @Mutation
+    changeRequestResponse(status: boolean){
+        this.requestResponse = status;
+    }
+
     get userData(){
         return this.currentUser;
     }
+
+    get getRequestResponse(){
+        return this.requestResponse;
+    }
+
+
+
 
 }
