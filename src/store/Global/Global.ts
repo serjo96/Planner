@@ -1,5 +1,5 @@
 import { VuexModule, Module, Mutation, Action } from 'vuex-module-decorators'
-import * as firebase from 'firebase';
+import { auth, firestore } from 'firebase';
 import { snackBarInterface } from "@/store/Global/Interfaces/Interface";
 
 
@@ -9,9 +9,10 @@ export default class Global extends VuexModule {
     enablePWA: boolean = true;
     snackBarData: snackBarInterface = {message: '', color: ''};
 
+
     @Action
     onAuthChange(){
-        firebase.auth().onAuthStateChanged(user => {
+        auth().onAuthStateChanged(user => {
             if (user) {
                 this.context.commit('setCurrentUser', user)
             } else {
@@ -23,7 +24,7 @@ export default class Global extends VuexModule {
 
     @Action
     onEnablePWA(){
-        firebase.firestore().enablePersistence()
+        firestore().enablePersistence()
             .catch(function(err) {
                 if (err.code == 'failed-precondition') {
                     // Multiple tabs open, persistence can only be enabled
@@ -54,6 +55,8 @@ export default class Global extends VuexModule {
     get pwaStatus(){
         return this.enablePWA;
     }
+
+
 
 
 }
