@@ -8,8 +8,31 @@ body {
 
 .pre-loader-parent {
   position: relative;
+  height: 100%
 }
 
-img{
+img {
   max-width: 100%;
+}
+
+.drop-down-menu{
+  &__item{
+    display: flex
+    &--delete{
+      &:hover{
+        background: rgba(234, 193, 190, 0.62)
+      }
+    }
+  }
+  &__text{
+    margin-left: 5px
+  }
+}
+
+.page-content {
+  padding: 0 20px
+}
+
+.page-title {
+  margin-bottom: 15px
 }
