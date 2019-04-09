@@ -51,7 +51,7 @@
 
                                         </v-list-tile>
 
-                                        <v-list-tile color="red" @click="deleteGoalFromList(item.id)">
+                                        <v-list-tile class="drop-down-menu__item drop-down-menu__item--delete" color="red" @click="deleteGoalFromList(item.id)">
 
                                                 <v-icon size="19" color="red">delete</v-icon>
                                                 <v-list-tile-title class="drop-down-menu__text">Delete</v-list-tile-title>
@@ -61,16 +61,6 @@
                                 </v-menu>
 
 
-                                <!--<v-btn @click="deleteGoalFromList(item.id)"-->
-                                       <!--icon-->
-                                       <!--ripple-->
-                                       <!--fab-->
-                                       <!--dark-->
-                                       <!--small-->
-                                       <!--color="red"-->
-                                <!--&gt;-->
-                                    <!--<v-icon>delete</v-icon>-->
-                                <!--</v-btn>-->
                             </v-flex>
                         </v-layout>
                     </div>
