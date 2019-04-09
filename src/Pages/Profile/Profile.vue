@@ -11,6 +11,7 @@
                                 <v-avatar
                                         @click="uploadPhotoDialog = true"
                                         size="180"
+                                        class="profile-user__photo-avatar"
                                         color="deep-purple lighten-5">
                                     <img v-if="User.photoURL" :src="User.photoURL" alt="profile">
                                     <div v-if="!User.photoURL">{{User.displayName ? User.displayName[0] : User.email[0]}}</div>
@@ -23,7 +24,9 @@
                                     <div class="profile-user__info-item-title">Name:</div>
                                     <div class="profile-user__info-item-content">
                                         <span>{{User.displayName}}</span>
-                                        <v-icon @click="editName = !editName" size="18">edit</v-icon>
+                                        <v-btn class="profile-user__info-item-content-edit-button" @click="editName = !editName" icon>
+                                            <v-icon size="18">edit</v-icon>
+                                        </v-btn>
                                     </div>
                                     <div v-if="editName" class="profile-user__info-item-edit">
                                         <v-text-field
@@ -48,7 +51,10 @@
                                     <div class="profile-user__info-item-title">Email address:</div>
                                     <div class="profile-user__info-item-content">
                                         <span>{{User.email}}</span>
-                                        <v-icon @click="editEmail = !editEmail" size="18">edit</v-icon>
+                                        <v-btn class="profile-user__info-item-content-edit-button" @click="editEmail = !editEmail" icon>
+                                            <v-icon size="18">edit</v-icon>
+                                        </v-btn>
+
                                     </div>
 
                                     <div v-if="editEmail" class="profile-user__info-item-edit">
@@ -92,7 +98,7 @@
                     </div>
                 </v-flex>
 
-                <v-flex xs7 lg5 xl4>
+                <v-flex xs7 lg7 xl8>
                     <div class="profile__card">
                         <div class="profile-statistic">
                             some statistic
@@ -102,7 +108,7 @@
             </v-layout>
         </v-container>
 
-        <UploadPhotoDialog v-if="uploadPhotoDialog" v-model="uploadPhotoDialog"></UploadPhotoDialog>
+        <ImageSelector v-if="uploadPhotoDialog" v-model="uploadPhotoDialog"></ImageSelector>
     </div>
 </template>
 
