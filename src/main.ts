@@ -6,6 +6,7 @@ import Vuex from 'vuex';
 import Vuetify from 'vuetify';
 import * as firebase from 'firebase';
 
+
 import App from './App.vue';
 import Route from '@/Core/router/router';
 import store from './store/index';

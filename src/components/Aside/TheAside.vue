@@ -10,9 +10,9 @@
 
             </div>
             <div class="aside__profile-photo">
-                <v-avatar color="deep-purple lighten-5">
+                <v-avatar color="deep-purple lighten-5 deep-purple--text accent-2--text">
                     <div v-if="!User.photoURL">{{User.displayName ? User.displayName[0] : User.email[0]}}</div>
-                    <img v-if="User.photoURL" :src="User.photoURL" alt="">
+                    <img v-if="User.photoURL" :src="User.photoURL" alt="profile photo">
                 </v-avatar>
             </div>
             <div class="aside__profile-name">

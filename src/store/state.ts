@@ -1,5 +1,4 @@
 import {ResponseError} from "@/Core/Interfaces/Global";
-import UserModule from "./User";
 
 export interface State {
     Auth: {
