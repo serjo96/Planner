@@ -1,7 +1,6 @@
 import { VuexModule, Module, Mutation, Action } from 'vuex-module-decorators'
-import * as firebase from 'firebase';
+import { firestore } from 'firebase';
 import GoalsInterface from "@/Core/Interfaces/Goals";
-import Router from "@/Core/router/router";
 
 
 
@@ -14,7 +13,7 @@ export default class GoalList extends VuexModule {
     subscribeGoalList(){
         const userId = this.context.rootState.UserModule.currentUser.uid;
         this.context.commit('changeRequestStatus', false);
-        firebase.firestore().collection('goals')
+        firestore().collection('goals')
             .doc(userId)
             .collection('userGoals')
             .onSnapshot((doc)=> {
@@ -24,15 +23,18 @@ export default class GoalList extends VuexModule {
                 this.context.commit('setGoalsData', data);
                 this.context.commit('changeRequestStatus', true);
             },
-                err=>  {
-                console.error(err);
+                (err): void=>  {
+                    this.context.commit('addSnackBarMessage', {
+                        message: err.message,
+                        color: 'error'
+                    });
             });
     }
 
     @Action
     unsubscribeFromGoals(){
         const userId = this.context.rootState.UserModule.currentUser.uid;
-        firebase.firestore().collection('goals')
+        firestore().collection('goals')
             .doc(userId)
             .collection('userGoals')
             .onSnapshot(():void =>{})
@@ -53,7 +55,7 @@ export default class GoalList extends VuexModule {
     deleteGoalFromList(id: string){
         const userId = this.context.rootState.UserModule.currentUser.uid;
         // this.context.commit('changeRequestStatus', false);
-        firebase.firestore().collection('goals')
+        firestore().collection('goals')
             .doc(userId)
             .collection('userGoals')
             .doc(id)
@@ -62,6 +64,12 @@ export default class GoalList extends VuexModule {
                 this.context.commit('addSnackBarMessage', {
                     message: 'Goal success delete',
                     color: 'success'
+                });
+            })
+            .catch(err=>{
+                this.context.commit('addSnackBarMessage', {
+                    message: err.message,
+                    color: 'error'
                 });
             })
     }
