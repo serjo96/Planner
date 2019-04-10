@@ -32,12 +32,22 @@
   &__upload-drop-zone{
     width: 100%
     height: 100%
-    label{
+
+
+    &-label{
       width: 100%
       height: 100%
       display: flex
       justify-content: center
       align-items: center
+      border-color: #000
+      border-width: 2px
+      border-style: dashed
+      transition all .3s
+      &--is-hover{
+        border-color: aqua
+        background: rgba(0, 255, 255, 0.40)
+      }
     }
   }
 }

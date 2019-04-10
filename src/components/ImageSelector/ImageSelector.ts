@@ -15,7 +15,7 @@ export default class ImageSelector extends Vue {
     @Getter('userData') User: any;
     @Getter getUploadStatus!: boolean;
     @Getter getStartUploading!: boolean;
-    @Action uploadImage: any;
+    @Action uploadOriginalImage: any;
     @Action startUploading: any;
     @Prop(Boolean) value!: boolean;
 
@@ -29,19 +29,9 @@ export default class ImageSelector extends Vue {
 
 
     uploadFile(){
-        const reader = new FileReader();
         const input = <HTMLInputElement> this.$refs.uploaderInput;
         this.file = input!.files;
-        this.uploadImage(this.file[0]);
-        // reader.onload = () => {
-        //         const img = new Image();
-        //         img.onload = ()=> {
-        //             this.drawCanvasImage(img)
-        //         };
-        //         img.src = URL.createObjectURL(this.file[0]);
-        //     };
-        // reader.readAsDataURL(this.file[0]);
-
+        this.uploadOriginalImage(this.file[0]);
     }
 
     drawCanvasImage(img: HTMLImageElement) {
@@ -55,18 +45,18 @@ export default class ImageSelector extends Vue {
 
     dropFile(event: DragEvent){
         event.preventDefault();
-        this.uploadImage(event.dataTransfer!.files[0]);
+        const target = event.target ? <HTMLElement>event.target : null;
+        target!.classList.remove('image-selector__upload-drop-zone-label--is-hover')
+        this.uploadOriginalImage(event.dataTransfer!.files[0]);
     }
 
     dropZoneDragOver(event: DragEvent){
-        event.preventDefault();
-        const target = event.target as HTMLElement;
-        target.classList().add('--is-hover')
+        const target = event.target ? <HTMLElement>event.target : null;
+        target!.classList.add('image-selector__upload-drop-zone-label--is-hover')
     }
 
     dropZoneDragLeave(event: DragEvent){
-        event.preventDefault();
-        const target = event.target as HTMLElement;
-        target.classList().remove('--is-hover')
+        const target = event.target ? <HTMLElement>event.target : null;
+        target!.classList.remove('image-selector__upload-drop-zone-label--is-hover')
     }
 }
