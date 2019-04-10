@@ -6,8 +6,8 @@
             dark
     >
         <v-container fill-height>
-            <v-layout align-center>
-                <v-flex text-xs-center>
+            <v-layout>
+                <v-flex>
                     <div v-if="loadingStatus" class="goal">
                         <h1 class="goal__name">{{getGoalData.name}}</h1>
                         <div class="goal__date">
