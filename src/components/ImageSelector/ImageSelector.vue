@@ -23,7 +23,17 @@
                     </div>
 
 
-                    <div  class="image-selector__selector">
+                    <div class="image-selector__selector">
+                        <div
+                                class="image-selector__upload-drop-zone"
+                                @drop="dropFile"
+                                @dragover.prevent="dropZoneDragOver"
+                                @dragleave.prevent="dropZoneDragLeave"
+                        >
+                            <label for="upload-image">
+                                <p>drop photo here or click</p>
+                            </label>
+                        </div>
                         <PreLoader v-if="getStartUploading && !getUploadStatus"></PreLoader>
                         <canvas v-if="getUploadStatus" class="image-selector__selector-canvas" ref="canvasImage"></canvas>
                     </div>

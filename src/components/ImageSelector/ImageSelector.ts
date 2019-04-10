@@ -53,4 +53,20 @@ export default class ImageSelector extends Vue {
     }
 
 
+    dropFile(event: DragEvent){
+        event.preventDefault();
+        this.uploadImage(event.dataTransfer!.files[0]);
+    }
+
+    dropZoneDragOver(event: DragEvent){
+        event.preventDefault();
+        const target = event.target as HTMLElement;
+        target.classList().add('--is-hover')
+    }
+
+    dropZoneDragLeave(event: DragEvent){
+        event.preventDefault();
+        const target = event.target as HTMLElement;
+        target.classList().remove('--is-hover')
+    }
 }
