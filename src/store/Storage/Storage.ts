@@ -10,25 +10,26 @@ export default class Storage extends VuexModule {
     startUploading: boolean = false;
 
 
+
     @Action
-    uploadImage(img: Blob) {
+    uploadOriginalImage(img: Blob) {
         this.context.commit('changeUploadStatus', false);
         const userId = this.context.rootState.UserModule.currentUser.uid;
 
         const uploadTask =  storage()
             .ref()
-            .child(`photos/${userId}/profilePhoto`)
+            .child(`photos/${userId}/originalImage`)
             .put(img);
 
         uploadTask.on(storage.TaskEvent.STATE_CHANGED,
             (snapshot): void=> {
                 const snapshotRef = snapshot as firebase.storage.UploadTaskSnapshot;
-                const bytesTransferred = (snapshotRef).bytesTransferred;
-                const totalBytes = (snapshotRef).totalBytes;
+                // const bytesTransferred = (snapshotRef).bytesTransferred;
+                // const totalBytes = (snapshotRef).totalBytes;
+                // let progress = (bytesTransferred / totalBytes) * 100;
+                //TODO: remove if be not needed visual upload progress
 
                 this.context.commit('startUploadStatus', true);
-                let progress = (bytesTransferred / totalBytes) * 100;
-                console.log('Upload is ' + progress + '% done');
 
 
             }, (err): void=> {
@@ -39,9 +40,7 @@ export default class Storage extends VuexModule {
             },
             (): void=> {
                 //TODO: Remove this action call, after adding photo cropping
-                uploadTask.snapshot.ref.getDownloadURL().then((downloadURL) => {
-                    this.context.dispatch('updateProfilePhoto', downloadURL);
-                });
+                this.context.dispatch('downloadOriginalURL');
                 this.context.commit('changeUploadStatus', true);
                 this.context.commit('startUploadStatus', false);
                 this.context.commit('addSnackBarMessage', {
@@ -70,6 +69,17 @@ export default class Storage extends VuexModule {
 
     get getStartUploading(){
         return this.startUploading;
+    }
+
+    @Action
+    downloadOriginalURL(){
+        const userId = this.context.rootState.UserModule.currentUser.uid;
+        storage()
+            .ref(`photos/${userId}/originalImage`)
+            .getDownloadURL()
+            .then((downloadURL) => {
+                this.context.dispatch('updateProfilePhoto', downloadURL);
+            });
     }
 
 }
