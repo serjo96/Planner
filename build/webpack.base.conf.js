@@ -59,11 +59,6 @@ module.exports = {
             }
         },
       {
-        test: /\.js$/,
-        loader: 'babel-loader',
-        include: [resolve('src'), resolve('test'), resolve('node_modules/webpack-dev-server/client')]
-      },
-      {
           test: /\.styl$/,
           loader: ['style-loader', 'css-loader', 'autoprefixer-loader?browsers=last 5 version', 'stylus-loader']
       },
@@ -108,6 +103,6 @@ module.exports = {
     plugins: [
         // make sure to include the plugin for the magic
         new VueLoaderPlugin(),
-        new BundleAnalyzerPlugin()
+        new BundleAnalyzerPlugin({openAnalyzer: false})
     ]
 };
