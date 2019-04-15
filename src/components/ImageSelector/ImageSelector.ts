@@ -1,7 +1,8 @@
 import Vue from 'vue'
-import { Component, Prop } from 'vue-property-decorator'
+import { Component, Prop, Watch } from 'vue-property-decorator'
 import { Action, Getter } from 'vuex-class';
 import PreLoader from "@/components/Preloader/PreLoader.vue";
+
 
 
 
@@ -10,14 +11,17 @@ import PreLoader from "@/components/Preloader/PreLoader.vue";
 })
 export default class ImageSelector extends Vue {
     file: any = {};
+    slider: number = 0;
 
 
     @Getter('userData') User: any;
     @Getter getUploadStatus!: boolean;
     @Getter getStartUploading!: boolean;
+
     @Action uploadOriginalImage: any;
     @Action startUploading: any;
     @Prop(Boolean) value!: boolean;
+
 
     get dialogModal(){
         return this.value;
@@ -34,19 +38,11 @@ export default class ImageSelector extends Vue {
         this.uploadOriginalImage(this.file[0]);
     }
 
-    drawCanvasImage(img: HTMLImageElement) {
-        const canvas =  <HTMLCanvasElement> this.$refs.canvasImage;
-
-
-        let ctx = canvas.getContext('2d');
-        ctx!.drawImage(img,0,0);
-    }
-
 
     dropFile(event: DragEvent){
         event.preventDefault();
         const target = event.target ? <HTMLElement>event.target : null;
-        target!.classList.remove('image-selector__upload-drop-zone-label--is-hover')
+        target!.classList.remove('image-selector__upload-drop-zone-label--is-hover');
         this.uploadOriginalImage(event.dataTransfer!.files[0]);
     }
 

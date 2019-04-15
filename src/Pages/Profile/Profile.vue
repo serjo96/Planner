@@ -108,7 +108,7 @@
             </v-layout>
         </v-container>
 
-        <ImageSelector v-if="uploadPhotoDialog" v-model="uploadPhotoDialog"></ImageSelector>
+        <ProfilePhotoDialog v-if="uploadPhotoDialog" v-model="uploadPhotoDialog"></ProfilePhotoDialog>
     </div>
 </template>
 

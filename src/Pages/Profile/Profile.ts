@@ -1,11 +1,11 @@
 import Vue from 'vue'
 import { Component, Watch } from 'vue-property-decorator'
 import { Action, Getter } from 'vuex-class';
-import ImageSelector from "@/components/ImageSelector/ImageSelector.vue";
+import ProfilePhotoDialog from '@/components/ProfilePhotoDialog/ProfilePhotoDialog.vue';
 
 
 @Component({
-    components: { ImageSelector }
+    components: { ProfilePhotoDialog }
 })
 export default class Profile extends Vue {
     uploadPhotoDialog: boolean = false;
