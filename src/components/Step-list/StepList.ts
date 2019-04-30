@@ -1,6 +1,6 @@
 import Vue from 'vue';
 import { Component, Prop } from 'vue-property-decorator';
-import { Action } from 'vuex-class';
+import { Action, State } from 'vuex-class';
 import draggable from "vuedraggable";
 import { normalizeDateBySeconds } from "@/Helpers/DateHelper";
 import { stepPayload } from "@/store/Goal/interfaces/goalInterfaces";
@@ -20,6 +20,7 @@ export default class StepList extends Vue {
         (v: string) => !!v || 'Name is required',
     ];
 
+    @State(state => state.Goal.goalData.steps) steps!: stepPayload ;
     @Action addGoalStep: any;
     @Action changeStepList: any;
     @Action sortList: any;
@@ -28,13 +29,13 @@ export default class StepList extends Vue {
 
 
     get myList() {
-        return this.$store.state.Goal.goalData.steps
+        return this.steps
     }
 
     set myList(value) {
         this.sortList({
             id: this.GoalId,
-            list:value
+            list: value
         })
     }
 
