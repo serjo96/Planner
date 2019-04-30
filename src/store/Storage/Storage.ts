@@ -8,13 +8,19 @@ import { ResponseError } from '@/Core/Interfaces/Global';
 export default class Storage extends VuexModule {
     uploadImageStatus: boolean = false;
     startUploading: boolean = false;
+    originalImgURL: string = '';
 
 
+    @Action
+    uploadImgForEdit(img: HTMLImageElement){
+        this.context.commit('setOriginalImgURL', img.src)
+    }
 
     @Action
     uploadOriginalImage(img: Blob) {
         this.context.commit('changeUploadStatus', false);
         const userId = this.context.rootState.UserModule.currentUser.uid;
+
 
         const uploadTask =  storage()
             .ref()
@@ -27,7 +33,7 @@ export default class Storage extends VuexModule {
                 // const bytesTransferred = (snapshotRef).bytesTransferred;
                 // const totalBytes = (snapshotRef).totalBytes;
                 // let progress = (bytesTransferred / totalBytes) * 100;
-                //TODO: remove if be not needed visual upload progress
+                //TODO: remove if not be needed visual upload progress
 
                 this.context.commit('startUploadStatus', true);
 
@@ -39,8 +45,9 @@ export default class Storage extends VuexModule {
                 });
             },
             (): void=> {
-                //TODO: Remove this action call, after adding photo cropping
-                this.context.dispatch('downloadOriginalURL');
+
+                //taking uploaded img url
+                // this.context.dispatch('downloadOriginalURL');
                 this.context.commit('changeUploadStatus', true);
                 this.context.commit('startUploadStatus', false);
                 this.context.commit('addSnackBarMessage', {
@@ -78,8 +85,20 @@ export default class Storage extends VuexModule {
             .ref(`photos/${userId}/originalImage`)
             .getDownloadURL()
             .then((downloadURL) => {
-                this.context.dispatch('updateProfilePhoto', downloadURL);
+                //TODO: Remove this action call, after adding photo cropping
+                // this.context.dispatch('updateProfilePhoto', downloadURL);
+                this.context.commit('setOriginalImgURL', downloadURL);
             });
     }
+
+    @Mutation
+    setOriginalImgURL(url: string){
+        this.originalImgURL = url;
+    }
+
+    get getOriginalImgURL (){
+        return this.originalImgURL;
+    }
+
 
 }
