@@ -20,5 +20,11 @@ module.exports = {
     source: 'src',
     img: 'src',
     image: 'xlink:href'
-  }
+  },
+    optimization: {
+        splitChunks: {
+            // include all types of chunks
+            chunks: 'all'
+        }
+    }
 };
