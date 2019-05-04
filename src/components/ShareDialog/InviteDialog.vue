@@ -15,11 +15,9 @@
 
         <v-card>
 
-            <v-card-title>
-                <h2 class="headline">Invite peoples</h2>
-            </v-card-title>
-
             <v-container grid-list-md>
+                <h2 class="headline mb-3">Invite peoples</h2>
+
                 <div class="invite-link-form">
                     <v-text-field
                             solo-inverted
@@ -66,5 +64,4 @@
 </template>
 
 <script src="./InviteDialog.ts" lang="ts"></script>
-
 <style src="./inviteMenu.stylus" lang="stylus" scoped></style>

@@ -15,7 +15,8 @@
                             <div v-if="getGoalData.date" class="goal__date-deadline">Goal deadline: {{normalizeDate(getGoalData.date)}}</div>
                         </div>
                         <p class="goal__description" v-if="getGoalData.description">{{getGoalData.description}}</p>
-                        <v-btn @click="onDeleteGoal">Delete</v-btn>
+                        <v-btn class="ml-0" @click="onDeleteGoal">Delete goal</v-btn>
+                        <InviteDialog></InviteDialog>
 
                         <StepList
                                 :Steps="getGoalData.steps"
