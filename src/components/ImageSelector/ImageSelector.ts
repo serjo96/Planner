@@ -19,6 +19,7 @@ export default class ImageSelector extends Vue {
     @Getter getStartUploading!: boolean;
 
     @Action uploadOriginalImage: any;
+    @Action uploadImgForEdit: any;
     @Action startUploading: any;
     @Prop(Boolean) value!: boolean;
 
@@ -34,8 +35,17 @@ export default class ImageSelector extends Vue {
 
     uploadFile(){
         const input = <HTMLInputElement> this.$refs.uploaderInput;
+        let reader = new FileReader();
         this.file = input!.files;
         this.uploadOriginalImage(this.file[0]);
+
+
+        reader.readAsDataURL(this.file[0]);
+        reader.onloadend = () => {
+            let img = <HTMLImageElement> new Image();
+            img.src = reader.result as string;
+            this.uploadImgForEdit(img)
+        }
     }
 
 

@@ -19,6 +19,9 @@ export default class ImageCropper extends Vue {
         dragStartX: 0,
         dragStartY: 0
     };
+    x: any;
+    y: any;
+    imageUrl: string = '';
 
 
     @Prop(String) image!: string;
@@ -26,7 +29,7 @@ export default class ImageCropper extends Vue {
 
     @Watch('slider')
     zoom(){
-       this.renderOffset( null, null)
+       this.renderOffset()
     }
 
 
@@ -34,17 +37,27 @@ export default class ImageCropper extends Vue {
         const img = new Image();
         img.onload = ()=> {
             this.img = img;
-            this.renderOffset( null, null)
+            this.initImage(img);
+
+            // this.renderOffset()
         };
         img.src = this.image;
     }
 
+    initImage(imgEl: HTMLImageElement){
+        let img = <HTMLImageElement> this.$refs.editingImage;
+        let containerWidth = 720;
+        let containerHeight = 451;
+        this.imageUrl = this.image;
 
-    paintBG(ctx: CanvasRenderingContext2D){
-        ctx.fillStyle = '#000';
-        ctx.fillRect(0, 0, ctx.canvas.width, ctx.canvas.height);
+        console.log(img.width)
+        img.style.transformOrigin = imgEl.width/2+'px' + ' ' + imgEl.height/2 +'px';
+        img.style.left = containerWidth/2+'px';
+        img.style.top = containerWidth/2+'px';
+
+        img.width = containerWidth / (this.slider/100);
+        img.height = containerHeight / (this.slider/100);
     }
-
 
 
     getDragOffset(ev: MouseEvent){
@@ -84,9 +97,26 @@ export default class ImageCropper extends Vue {
     }
 
 
-    renderOffset(offsetX: number|null, offsetY: number|null){
-        offsetX = offsetX || this.imgEditor.offsetX;
-        offsetY = offsetY || this.imgEditor.offsetY;
+    paintBG(ctx: CanvasRenderingContext2D){
+        ctx.fillStyle = 'rgba(0, 0, 0, 0.3)';
+        ctx.fillRect(0, 0, ctx.canvas.width, ctx.canvas.height);
+    }
+
+    drawCircle(ctx: CanvasRenderingContext2D){
+        let middleCanvasX = ctx!.canvas.width/2;
+        let middleCanvasY = ctx!.canvas.height/2;
+
+        ctx!.beginPath();
+        ctx!.arc(middleCanvasX, middleCanvasY, 115, 0, Math.PI * 2, true);
+    }
+
+
+    renderOffset(offsetX?: number, offsetY?: number){
+        let X = offsetX || this.imgEditor.offsetX;
+        let Y = offsetY || this.imgEditor.offsetY;
+
+        this.x = X;
+        this.y = Y;
 
         const canvas = <HTMLCanvasElement> this.$refs.canvasImage;
         let ctx = canvas.getContext('2d');
@@ -96,13 +126,58 @@ export default class ImageCropper extends Vue {
         let viewH = ctx!.canvas.height;
         let srcWidth = viewW / (this.slider/100);
         let srcHeight = viewH / (this.slider/100);
-        let viewCenterX = +( (-offsetX + viewW/2 ) - (srcWidth/2) ).toFixed(2);
-        let viewCenterY = +( (-offsetY + viewH/2 ) - (srcHeight/2) ).toFixed(2);
+        let viewCenterX = +( (-X + viewW/2 ) - (srcWidth/2) ).toFixed(2);
+        let viewCenterY = +( (-Y + viewH/2 ) - (srcHeight/2) ).toFixed(2);
 
 
-        this.paintBG(ctx!);
         ctx!.drawImage(this.img, viewCenterX, viewCenterY, srcWidth, srcHeight, 0,0, viewW, viewH);
+        ctx!.globalCompositeOperation = 'destination-in';
+        this.drawCircle(ctx!);
+        this.paintBG(ctx!);
+        ctx!.clip();
+        ctx!.globalCompositeOperation = 'destination-atop';
+        ctx!.drawImage(this.img, viewCenterX, viewCenterY, srcWidth, srcHeight, 0,0, viewW, viewH);
+    }
 
+
+    cropImage(){
+        const canvas = <HTMLCanvasElement> this.$refs.canvasImage;
+        const canvasCrop = <HTMLCanvasElement> this.$refs.canvasCrop;
+        let ctx = canvas.getContext('2d');
+        let ctxCrop = canvasCrop.getContext('2d');
+        let viewW = ctx!.canvas.width;
+        let viewH = ctx!.canvas.height;
+        let srcWidth = viewW / (this.slider/100);
+        let srcHeight = viewH / (this.slider/100);
+        let middleCanvasX = ctx!.canvas.width/2;
+        let middleCanvasY = ctx!.canvas.height/2;
+
+        let viewCenterX = +( (-this.x + viewW/2 ) - (srcWidth/2) ).toFixed(2);
+        let viewCenterY = +( (-this.y + viewH/2 ) - (srcHeight/2) ).toFixed(2);
+        let left =  viewW - middleCanvasX;
+        let top =  viewH - middleCanvasY;
+
+
+
+        // ctx!.clearRect(0, 0, canvas.width, canvas.height);
+
+        this.drawCircle(ctxCrop!);
+        ctxCrop!.clip();
+        ctxCrop!.drawImage(this.img, 500, 500, srcWidth, srcHeight, 0,0, viewW, viewH);
+        let img = new Image();
+        img.src = canvasCrop.toDataURL();
+        this.img = img;
+        this.renderOffset();
+
+
+    }
+
+    resetCanvas(){
+        const canvas = <HTMLCanvasElement> this.$refs.canvasImage;
+        let ctx = canvas.getContext('2d');
+        ctx!.clearRect(0, 0, canvas.width, canvas.height);
+        // this.img = this.croppedImg;
+        this.renderOffset();
     }
 
 }

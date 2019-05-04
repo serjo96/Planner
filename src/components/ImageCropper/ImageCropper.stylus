@@ -1,0 +1,29 @@
+.image-cropper {
+  &__body {
+    //height: 100vh
+    //max-height: 451px
+    overflow: auto
+    background: #000
+  }
+  &__canvas{
+    cursor: move
+  }
+
+  &__container{
+    padding-right:
+  }
+
+  &__target-image-container{
+    position: relative
+    height: 230px
+    width: 230px
+    margin: 0 auto
+  }
+
+  &__image{
+    position: absolute
+    max-width: none
+    max-height: none
+    cursor: move
+  }
+}
