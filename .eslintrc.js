@@ -46,8 +46,9 @@ module.exports = {
       "no-invalid-regexp": 2,          // http://eslint.org/docs/rules/no-invalid-regexp
       // don't require .vue extension when importing
     'import/extensions': ['error', 'always', {
-      js: 'never',
-      vue: 'never'
+        js: 'never',
+        ts: 'never',
+        vue: 'never'
     }],
       /**
        * Style
