@@ -25,7 +25,9 @@
                             v-model="iviteEmail"
                     ></v-text-field>
 
-                    <v-btn block>Send invite</v-btn>
+                    <v-btn
+                            @click="sendInvite"
+                            block>Send invite</v-btn>
                 </div>
 
                 <div class="invite-link-actions">

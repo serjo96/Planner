@@ -12,6 +12,11 @@ export default class InviteDialog extends Vue {
     iviteEmail: string = '';
 
 
+    @Action createInviteUser: any;
+
+    sendInvite(){
+        this.createInviteUser(this.iviteEmail)
+    }
 
 
     onClickCreateLink(){

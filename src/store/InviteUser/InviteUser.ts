@@ -1,6 +1,5 @@
 import { VuexModule, Module, Mutation, Action } from 'vuex-module-decorators';
 import * as firebase from 'firebase';
-import { generatePassword } from "@/Helpers/PasswordHelper";
 
 
 @Module
