@@ -13,6 +13,7 @@
     "test:coverage": "jest --config config/jest.config.js --coverage"
   },
   "dependencies": {
+    "axios": "^0.18.0",
     "firebase": "^5.11.1",
     "ts-loader": "^5.3.3",
     "typescript": "^3.3.3333",
