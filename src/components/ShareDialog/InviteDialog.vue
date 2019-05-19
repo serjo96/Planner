@@ -22,7 +22,7 @@
                     <v-text-field
                             solo-inverted
                             label="email"
-                            v-model="iviteEmail"
+                            v-model="inviteEmail"
                     ></v-text-field>
 
                     <v-btn
@@ -40,13 +40,13 @@
                     >{{inviteLink ? 'Disable' : 'Create'}} link</v-btn>
 
                     <div class="invite-link-actions__invite-link"
-                        v-if="inviteLink"
+                        v-if="inviteLink && shortLink.shortLink"
                     >
                         <v-text-field
                                 autofocus
                                 ref="inviteInput"
                                 readonly
-                                :value="inviteURL"
+                                :value="shortLink.shortLink"
                                 @focus="selectInviteInput"
                         >
                         </v-text-field>

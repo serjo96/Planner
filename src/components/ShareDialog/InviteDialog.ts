@@ -1,6 +1,6 @@
 import Vue from 'vue'
 import { Component, Prop, Watch } from 'vue-property-decorator'
-import { Action, Getter } from 'vuex-class';
+import {Action, Getter, State} from 'vuex-class';
 
 
 
@@ -8,24 +8,29 @@ import { Action, Getter } from 'vuex-class';
 })
 export default class InviteDialog extends Vue {
     inviteLink: boolean = false;
-    inviteURL: string = '';
-    iviteEmail: string = '';
+    inviteEmail: string = '';
 
 
     @Action createInviteUser: any;
+    @Action createShortInviteLink: any;
+    @State(state => state.InviteUser.shortLink) shortLink!: string;
 
     sendInvite(){
-        this.createInviteUser(this.iviteEmail)
+        let goalID = this.$route.params.id;
+        this.createInviteUser({
+            email: this.inviteEmail,
+            goalID
+        })
     }
 
 
     onClickCreateLink(){
         this.inviteLink = !this.inviteLink;
+        this.createShortInviteLink(document.URL);
     }
 
     selectInviteInput(){
         const input = <any> this.$refs.inviteInput;
-        this.inviteURL = document.URL;
         setTimeout(()=> input.$refs.input.select(),1)
 
     }
@@ -33,5 +38,6 @@ export default class InviteDialog extends Vue {
     onClickCopyLink(){
         document.execCommand('copy');
     }
+
 
 }
