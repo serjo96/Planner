@@ -1,11 +1,8 @@
-import {VuexModule, Module, Mutation, Action} from 'vuex-module-decorators'
+import {VuexModule, Module, Mutation, Action} from 'vuex-module-decorators';
 import * as firebase from 'firebase';
-import Router from "@/Core/router/router";
-import { ResponseError } from "@/Core/Interfaces/Global";
-import { SingUpActionPayload } from "./interfaces/singUp";
-
-
-
+import Router from '@/Core/router/router';
+import { ResponseError } from '@/Core/Interfaces/Global';
+import { SingUpActionPayload } from './interfaces/singUp';
 
 
 @Module
@@ -17,26 +14,26 @@ export default class Auth extends VuexModule {
     };
     successResetPasswordMessage: string = '';
 
-    get AuthError(){
+    get AuthError() {
         return this.authError;
     }
 
-    get restPasswordMessage(){
+    get restPasswordMessage() {
         return this.successResetPasswordMessage;
     }
 
 
     @Action({rawError: true})
-    singUpAction (payload: SingUpActionPayload) {
-       firebase.auth().createUserWithEmailAndPassword(payload.email, payload.password)
-           .then(res=> {
-               this.context.commit('setCurrentUser', firebase.auth().currentUser);
-               this.context.commit('setSingUpResult', res);
-               Router.push('/');
-           })
-           .catch(error=> {
-               this.context.commit('error',  error);
-           });
+    singUpAction(payload: SingUpActionPayload) {
+        firebase.auth().createUserWithEmailAndPassword(payload.email, payload.password)
+            .then(res=> {
+                this.context.commit('setCurrentUser', firebase.auth().currentUser);
+                this.context.commit('setSingUpResult', res);
+                Router.push('/');
+            })
+            .catch(error=> {
+                this.context.commit('error',  error);
+            });
     }
 
     @Mutation
@@ -45,7 +42,7 @@ export default class Auth extends VuexModule {
     }
 
     @Action({rawError: true})
-    loginAction(payload: any){
+    loginAction(payload: any) {
         firebase.auth().signInAndRetrieveDataWithEmailAndPassword(payload.email, payload.password)
             .then(res=>{
                 this.context.commit('login', res);
@@ -58,25 +55,25 @@ export default class Auth extends VuexModule {
     }
 
     @Mutation
-    error(error: ResponseError){
+    error(error: ResponseError) {
         this.authError = error;
     }
 
     @Mutation
-    successResetPassword(){
+    successResetPassword() {
         this.successResetPasswordMessage = 'A message with instructions for resetting the password has been sent to your email.';
     }
 
     @Mutation
-    login(payload: any){
+    login(payload: any) {
         this.singUpData = payload.result;
     }
 
     @Action
-    logOut(){
+    logOut() {
         firebase.auth().signOut()
             .then((res)=> {
-                console.log(res)
+                console.log(res);
                 this.context.commit('setCurrentUser', firebase.auth().currentUser);
                 localStorage.removeItem('user');
                 Router.push('/auth');
@@ -88,7 +85,7 @@ export default class Auth extends VuexModule {
     }
 
     @Action
-     resetPassword(email: string){
+    resetPassword(email: string) {
         const actionCodeSettings = {url: 'http://localhost:8080'};
 
         firebase.auth().sendPasswordResetEmail(email, actionCodeSettings)
@@ -97,20 +94,20 @@ export default class Auth extends VuexModule {
             })
             .catch(error=> {
                 this.context.commit('error', error);
-            })
+            });
     }
 
 
     @Mutation
-    clearErrorData(){
+    clearErrorData() {
         this.authError = {
             code: '',
             message: ''
-        }
+        };
     }
 
     @Mutation
-    clearPasswordMessage(){
+    clearPasswordMessage() {
         this.successResetPasswordMessage = '';
     }
 
