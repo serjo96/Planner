@@ -10,7 +10,7 @@ import * as firebase from 'firebase';
 import App from './App.vue';
 import Route from '@/Core/router/router';
 import store from './store/index';
-import { config } from "./Core/api_config/database";
+import { config } from "./Core/api_config/apiConfig";
 
 Vue.config.devtools = true;
 Vue.config.productionTip = false;
